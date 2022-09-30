@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="DirectCompositeSample.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="DXSample.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Win32Application.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="d3dx12.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectCompositeSample.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="DXSample.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="DXSampleHelper.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Win32Application.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="headers">
+      <UniqueIdentifier>{e46247a7-280d-4742-b8b5-5e6fa9948396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{376499b3-3a95-4ce0-b675-6de0a6a5fe6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external">
+      <UniqueIdentifier>{3eb48ef5-dcc5-4e4a-9720-06c8ec8bd2d8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cfg.lua">
+      <Filter>external</Filter>
+    </None>
+  </ItemGroup>
+</Project>
