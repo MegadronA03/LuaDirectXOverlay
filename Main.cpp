@@ -12,9 +12,12 @@ namespace LuaGlobals {
         WriteConsoleA(GetStdHandle(STD_OUTPUT_HANDLE), input, strlen, NULL, NULL);
         return 0;
     }
-    static int l_ovnew(lua_State* L) {
+    static int l_newwnd(lua_State* L) {
         //DirectCompositeSample sample(512, 512, L"Lua Overlay");
         //int wnderr = Win32Application::Run(&sample, hInstance, nCmdShow);
+        return 0;
+    }
+    static int l_quit(lua_State* L) {
         return 0;
     }
 }
@@ -56,9 +59,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
         return 1;
     }
     else {
-        //DirectCompositeSample sample(512, 512, L"Lua Overlay");
-        //int wnderr = Win32Application::Run(&sample, hInstance, nCmdShow);
-        //lua_close(L); //close lua state
-        //return wnderr;
+        while (GetConsoleWindow()) {};
+        lua_close(L); //close lua state
+        return 0;
     }
 }
