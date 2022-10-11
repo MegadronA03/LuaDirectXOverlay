@@ -4,20 +4,28 @@
 #include "DirectCompositeSample.h"
 //#include "LuaGlobals.cpp"
 
+HINSTANCE hInstanceSvd;
+int nCmdShowSvd;
+HWND conWND;
+
+int (*LuaCFuncs) (lua_State*) = {};
+
 namespace LuaGlobals {
     static int l_wcout(lua_State* L) {
         //int strlen;
         const char* input = luaL_checkstring(L, 1);
-        int strlen = luaL_checkint(L, 2);
+        //int strlen = luaL_checkint(L, 2);
+        size_t strlen = lua_objlen(L, 1);
         WriteConsoleA(GetStdHandle(STD_OUTPUT_HANDLE), input, strlen, NULL, NULL);
         return 0;
     }
     static int l_newwnd(lua_State* L) {
-        //DirectCompositeSample sample(512, 512, L"Lua Overlay");
-        //int wnderr = Win32Application::Run(&sample, hInstance, nCmdShow);
+        DirectCompositeSample sample(512, 512, L"Lua Overlay");
+        int wnderr = Win32Application::Run(&sample, hInstanceSvd, nCmdShowSvd);
         return 0;
     }
     static int l_quit(lua_State* L) {
+        FreeConsole();
         return 0;
     }
 }
@@ -33,11 +41,13 @@ bool CheckLua(lua_State* L, int r) {
     return true;
 }
 
+
 _Use_decl_annotations_
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 {
+    hInstanceSvd = hInstance;
+    nCmdShowSvd = nCmdShow;
     // Console
-    HWND conWND;
     AllocConsole();
     conWND = FindWindow(L"ConsoleWindowClass", NULL);
     ShowWindow(conWND, nCmdShow); //0 - hide, 1 - show
@@ -51,6 +61,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     luaL_openlibs(L); // Open standard libraries
     lua_pushcfunction(L, LuaGlobals::l_wcout);
     lua_setglobal(L, "ConsoleWrite");
+    lua_pushcfunction(L, LuaGlobals::l_quit);
+    lua_setglobal(L, "ProgramClose");
     int Rcfg = luaL_dofile(L, "cfg.lua");
     if (!CheckLua(L, Rcfg)) {
         std::string errmsg = "\nPlease check if cfg.lua is near overlay's executable and restart application!\n";
@@ -59,7 +71,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
         return 1;
     }
     else {
-        while (GetConsoleWindow()) {};
+        while (GetConsoleWindow());
         lua_close(L); //close lua state
         return 0;
     }
